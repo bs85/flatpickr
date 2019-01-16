@@ -1,8 +1,6 @@
 import { DateOption, Options, ParsedOptions } from "./options";
 import { Locale, CustomLocale, key as LocaleKey } from "./locale";
-
 import { RevFormat, Formats, TokenRegex } from "../utils/formatting";
-
 export interface Elements {
   element: HTMLElement;
   input: HTMLInputElement;
@@ -10,10 +8,8 @@ export interface Elements {
   _input: HTMLInputElement;
   mobileInput?: HTMLInputElement;
   mobileFormatStr?: string;
-
   selectedDateElem?: DayElement;
   todayDateElem?: DayElement;
-
   _positionElement: HTMLElement;
   weekdayContainer: HTMLDivElement;
   calendarContainer: HTMLDivElement;
@@ -21,68 +17,46 @@ export interface Elements {
   rContainer?: HTMLDivElement;
   daysContainer?: HTMLDivElement;
   days: HTMLDivElement;
-
   weekWrapper?: HTMLDivElement;
   weekNumbers?: HTMLDivElement;
-
-  // month nav
   monthNav: HTMLDivElement;
-
   yearElements: HTMLInputElement[];
   monthElements: HTMLSpanElement[];
-
-  // month nav getters
   currentYearElement: HTMLInputElement;
   currentMonthElement: HTMLSpanElement;
-
-  // month nav arrows
   _hidePrevMonthArrow: boolean;
   _hideNextMonthArrow: boolean;
   prevMonthNav: HTMLElement;
   nextMonthNav: HTMLElement;
-
   timeContainer?: HTMLDivElement;
   hourElement?: HTMLInputElement;
   minuteElement?: HTMLInputElement;
   secondElement?: HTMLInputElement;
-
   amPM?: HTMLSpanElement;
-  okButtonElement?: HTMLSpanElement;
 }
-
 export interface Formatting {
   revFormat: RevFormat;
   formats: Formats;
   tokenRegex: TokenRegex;
 }
-
-export type Instance = Elements &
+export declare type Instance = Elements &
   Formatting & {
-    // Dates
     minRangeDate?: Date;
     maxRangeDate?: Date;
     now: Date;
     latestSelectedDateObj?: Date;
     _selectedDateObj?: Date;
     selectedDates: Date[];
-
-    // State
     config: ParsedOptions;
     l10n: Locale;
-
     currentYear: number;
     currentMonth: number;
-
     isOpen: boolean;
     isMobile: boolean;
-
     minDateHasTime: boolean;
     maxDateHasTime: boolean;
-
     showTimeInput: boolean;
     _showTimeInput: boolean;
-
-    // Methods
     changeMonth: (
       value: number,
       is_offset?: boolean,
@@ -106,7 +80,6 @@ export type Instance = Elements &
       format?: string
     ) => void;
     toggle: () => void;
-
     pad: (num: string | number) => string;
     parseDate: (
       date: Date | string | number,
@@ -114,16 +87,14 @@ export type Instance = Elements &
       timeless?: boolean
     ) => Date | undefined;
     formatDate: (dateObj: Date, frmt: string) => string;
-
-    // Internals
-
     _handlers: {
       event: string;
       element: Element;
       handler: (e?: Event) => void;
-      options?: { capture?: boolean };
+      options?: {
+        capture?: boolean;
+      };
     }[];
-
     _bind: <E extends Element>(
       element: E | E[],
       event: string | string[],
@@ -139,18 +110,18 @@ export type Instance = Elements &
     __hideNextMonthArrow: boolean;
     __hidePrevMonthArrow: boolean;
     _positionCalendar: (customPositionElement?: HTMLElement) => void;
-
     utils: {
       getDaysInMonth: (month?: number, year?: number) => number;
     };
   };
-
 export interface FlatpickrFn {
   (selector: Node, config?: Options): Instance;
   (selector: ArrayLike<Node>, config?: Options): Instance[];
   (selector: string, config?: Options): Instance | Instance[];
   defaultConfig: ParsedOptions;
-  l10ns: { [k in LocaleKey]?: CustomLocale } & { default: Locale };
+  l10ns: { [k in LocaleKey]?: CustomLocale } & {
+    default: Locale;
+  };
   localize: (l10n: CustomLocale) => void;
   setDefaults: (config: Options) => void;
   parseDate: (
@@ -161,5 +132,7 @@ export interface FlatpickrFn {
   formatDate: (date: Date, format: string) => string;
   compareDates: (date1: Date, date2: Date, timeless?: boolean) => number;
 }
-
-export type DayElement = HTMLSpanElement & { dateObj: Date; $i: number };
+export declare type DayElement = HTMLSpanElement & {
+  dateObj: Date;
+  $i: number;
+};
